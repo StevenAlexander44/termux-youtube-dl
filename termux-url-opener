@@ -2,11 +2,11 @@ echo -n '[V]ideo, [M]usic, [S]tream Video, or Stream Music? '
 read FORMAT
 case $FORMAT in
   V | v)
-    youtube-dl -f "(bestvideo[height<=720]+bestaudio/best[height<=720])" --recode-video mp4 -o "/data/data/com.termux/files/home/storage/shared/ytdl/%(title)s.%(ext)s" $1
+    youtube-dl -f "bestvideo[height<=720]+bestaudio/best[height<=720]" --recode-video mp4 -o "~/storage/shared/ytdl/%(title)s.%(ext)s" $1
     ;;
 
   M | m)
-    youtube-dl -f "bestaudio/best" -x --audio-format mp3 -o "/data/data/com.termux/files/home/storage/shared/ytdl/%(title)s.%(ext)s" $1
+    youtube-dl -f "bestaudio/best" -x --audio-format mp3 -o "~/storage/shared/ytdl/%(title)s.%(ext)s" $1
     ;;
 
   S | s)
