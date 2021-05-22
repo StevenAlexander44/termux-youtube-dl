@@ -14,6 +14,6 @@ case $FORMAT in
     ;;
 
   *)
-    termux-open-url `youtube-dl -f "bestaudio" -g $1`
+    termux-open-url `youtube-dl -f "bestaudio/best" -g $1`
     ;;
 esac
