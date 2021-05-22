@@ -6,4 +6,4 @@ pkg install ffmpeg -y
 pip install youtube-dl
 mkdir -p /data/data/com.termux/files/home/storage/shared/YoutubeDL
 mkdir ~/bin
-curl GITHUBURL -o ~/bin/termux-url-opener
+curl https://raw.githubusercontent.com/StevenAlexander44/termux-youtube-dl/main/termux-url-opener?token=APKP6QG4ZCOHCQOMZMW3GHLAVCPMW -o ~/bin/termux-url-opener
