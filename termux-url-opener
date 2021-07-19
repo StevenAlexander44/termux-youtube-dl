@@ -1,40 +1,41 @@
+URL=$1
 function download {
-case $1 in
+ case $OPTION in
   0)
-    youtube-dl -f "bestvideo[height<=720]+bestaudio/best[height<=720]" --recode-video mp4 -o "~/storage/downloads/%(title)s.%(ext)s" $1
-    ;;
+   youtube-dl -f "bestvideo[height<=720]+bestaudio/best[height<=720]" --recode-video mp4 -o "~/storage/downloads/%(title)s.%(ext)s" $URL
+   ;;
 
   1)
-    youtube-dl -f "bestaudio/best" -x --audio-format mp3 -o "~/storage/downloads/%(title)s.%(ext)s" $1
-    ;;
+   youtube-dl -f "bestaudio/best" -x --audio-format mp3 -o "~/storage/downloads/%(title)s.%(ext)s" $URL
+   ;;
 
   2)
-    youtube-dl -F $1
-    read FORMAT
-    youtube-dl -f $FORMAT -o "~/storage/downloads/%(title)s.%(ext)s" $1
-    ;;
+   youtube-dl -F $URL
+   read FORMAT
+   youtube-dl -f $FORMAT -o "~/storage/downloads/%(title)s.%(ext)s" $URL
+   ;;
 
   3)
-    termux-open-url `youtube-dl -f "best" -g $1`
-    ;;
+   termux-open-url `youtube-dl -f "best" -g $URL`
+   ;;
 
   4)
-    termux-open-url `youtube-dl -f "bestaudio/best" -g $1`
-    ;;
+   termux-open-url `youtube-dl -f "bestaudio/best" -g $URL`
+   ;;
 
   5)
-    youtube-dl -F $1
-    read FORMAT
-    termux-open-url `youtube-dl -f $FORMAT -g $1`
-    ;;
+   youtube-dl -F $1
+   read FORMAT
+   termux-open-url `youtube-dl -f $FORMAT -g $URL`
+   ;;
 
   *)
-    echo Download termux-api from F-DROID, or just select an option
-    echo '0) Download Video 1) Download Music 2) Download Other 3) Stream Video 4) Stream Music 5) Stream Other'
-    read OPTION
-    download $OPTION
-    ;;
-esac
+   echo Download termux-api from F-DROID, or just select an option
+   echo '0) Download Video 1) Download Music 2) Download Other 3) Stream Video 4) Stream Music 5) Stream Other'
+   read OPTION
+   download
+   ;;
+ esac
 }
 OPTION="$(termux-dialog sheet -v '1) Download Video','2) Download Music','3) Download Other','4) Stream Video','5) Stream Music','6) Stream Other' | jq '.index' -r)"
-download $OPTION
+download
