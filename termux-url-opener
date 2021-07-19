@@ -1,5 +1,5 @@
-NUMBER="$(termux-dialog sheet -v '1) Download Video','2) Download Music','3) Download Other','4) Stream Video','5) Stream Music','6) Stream Other' | jq '.index' -r)"
-case $NUMBER in
+function download {
+case $1 in
   0)
     youtube-dl -f "bestvideo[height<=720]+bestaudio/best[height<=720]" --recode-video mp4 -o "~/storage/downloads/%(title)s.%(ext)s" $1
     ;;
@@ -29,6 +29,12 @@ case $NUMBER in
     ;;
 
   *)
-    echo didnt download anything
+    echo Download termux-api from F-DROID, or just select an option
+    echo '0) Download Video 1) Download Music 2) Download Other 3) Stream Video 4) Stream Music 5) Stream Other'
+    read OPTION
+    download $OPTION
     ;;
 esac
+}
+OPTION="$(termux-dialog sheet -v '1) Download Video','2) Download Music','3) Download Other','4) Stream Video','5) Stream Music','6) Stream Other' | jq '.index' -r)"
+download $OPTION
