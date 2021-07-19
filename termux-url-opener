@@ -1,19 +1,34 @@
-echo -n '[V]ideo, [M]usic, [S]tream Video, or Stream Music? '
-read FORMAT
-case $FORMAT in
-  V | v)
-    youtube-dl -f "bestvideo[height<=720]+bestaudio/best[height<=720]" --recode-video mp4 -o "~/storage/shared/ytdl/%(title)s.%(ext)s" $1
+NUMBER="$(termux-dialog sheet -v '1) Download Video','2) Download Music','3) Download Other','4) Stream Video','5) Stream Music','6) Stream Other' | jq '.index' -r)"
+case $NUMBER in
+  0)
+    youtube-dl -f "bestvideo[height<=720]+bestaudio/best[height<=720]" --recode-video mp4 -o "~/storage/downloads/%(title)s.%(ext)s" $1
     ;;
 
-  M | m)
-    youtube-dl -f "bestaudio/best" -x --audio-format mp3 -o "~/storage/shared/ytdl/%(title)s.%(ext)s" $1
+  1)
+    youtube-dl -f "bestaudio/best" -x --audio-format mp3 -o "~/storage/downloads/%(title)s.%(ext)s" $1
     ;;
 
-  S | s)
+  2)
+    youtube-dl -F $1
+    read FORMAT
+    youtube-dl -f $FORMAT -o "~/storage/downloads/%(title)s.%(ext)s" $1
+    ;;
+
+  3)
     termux-open-url `youtube-dl -f "best" -g $1`
     ;;
 
-  *)
+  4)
     termux-open-url `youtube-dl -f "bestaudio/best" -g $1`
+    ;;
+
+  5)
+    youtube-dl -F $1
+    read FORMAT
+    termux-open-url `youtube-dl -f $FORMAT -g $1`
+    ;;
+
+  *)
+    echo didnt download anything
     ;;
 esac
