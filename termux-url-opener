@@ -1,3 +1,4 @@
+#!/bin/bash
 URL=$1
 function download {
  case $OPTION in
