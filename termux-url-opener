@@ -25,7 +25,7 @@ function download {
    ;;
 
   5)
-   youtube-dl -F $1
+   youtube-dl -F $URL
    read FORMAT
    termux-open-url `youtube-dl -f $FORMAT -g $URL`
    ;;
