@@ -3,31 +3,31 @@ URL=$1
 function download {
  case $OPTION in
   0)
-   youtube-dl -f "bestvideo[height<=720]+bestaudio/best[height<=720]" --recode-video mp4 -o "~/storage/downloads/%(title)s.%(ext)s" $URL
+   yt-dlp -f "bestvideo[height<=720]+bestaudio/best[height<=720]" --recode-video mp4 -o "~/storage/downloads/%(title)s.%(ext)s" $URL
    ;;
 
   1)
-   youtube-dl -f "bestaudio/best" -x --audio-format mp3 -o "~/storage/downloads/%(title)s.%(ext)s" $URL
+   yt-dlp -f "bestaudio/best" -x --audio-format mp3 -o "~/storage/downloads/%(title)s.%(ext)s" $URL
    ;;
 
   2)
-   youtube-dl -F $URL
+   yt-dlp -F $URL
    read FORMAT
-   youtube-dl -f $FORMAT -o "~/storage/downloads/%(title)s.%(ext)s" $URL
+   yt-dlp -f $FORMAT -o "~/storage/downloads/%(title)s.%(ext)s" $URL
    ;;
 
   3)
-   termux-open-url `youtube-dl -f "best" -g $URL`
+   termux-open-url `yt-dlp -f "best" -g $URL`
    ;;
 
   4)
-   termux-open-url `youtube-dl -f "bestaudio/best" -g $URL`
+   termux-open-url `yt-dlp -f "bestaudio/best" -g $URL`
    ;;
 
   5)
-   youtube-dl -F $URL
+   yt-dlp -F $URL
    read FORMAT
-   termux-open-url `youtube-dl -f $FORMAT -g $URL`
+   termux-open-url `yt-dlp -f $FORMAT -g $URL`
    ;;
 
   *)
