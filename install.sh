@@ -1,5 +1,6 @@
 termux-setup-storage
-pkg install python termux-api jq -y
+pkg install python termux-api jq --no-install-recommends -y
 pip install yt-dlp
 mkdir ~/bin
-curl https://raw.githubusercontent.com/StevenAlexander44/termux-youtube-dl/main/termux-url-opener -o ~/bin/termux-url-opener
+cd ~/bin
+curl -LO https://raw.githubusercontent.com/StevenAlexander44/termux-youtube-dl/main/termux-url-opener
