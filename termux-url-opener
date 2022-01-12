@@ -3,7 +3,7 @@ URL=$1
 function download {
  case $OPTION in
   0)
-   yt-dlp -f "bestvideo[height<=720]+bestaudio/best[height<=720]" --recode-video mp4 -o "~/storage/downloads/%(title)s.%(ext)s" $URL
+   yt-dlp -f "bestvideo+bestaudio/best" --recode-video mp4 -o "~/storage/downloads/%(title)s.%(ext)s" $URL
    ;;
 
   1)
@@ -17,11 +17,11 @@ function download {
    ;;
 
   3)
-   termux-open-url `yt-dlp -f "best" -g $URL`
+   termux-open-url `yt-dlp -f "b" -g $URL`
    ;;
 
   4)
-   termux-open-url `yt-dlp -f "bestaudio/best" -g $URL`
+   termux-open-url `yt-dlp -f "bestaudio/b" -g $URL`
    ;;
 
   5)
