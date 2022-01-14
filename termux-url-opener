@@ -12,7 +12,7 @@ download () {
 			read -p "Video+Audio: " FORMAT;;
 		*)
 			echo Download termux-api from F-DROID for a better interface, or type a number and press enter
-			read -p "1) Download Video 2) Download Music 3) Download Custom 4) Stream Video 5) Stream Music 6) Stream Custom: " OPTION
+			read -p "1) Download Video 2) Download Music 3) Download Custom: " OPTION
 			OPTION=`expr $OPTION - 1`
 			download;;
 	esac
