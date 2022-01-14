@@ -2,41 +2,31 @@
 URL=$1
 function download {
  case $OPTION in
-  0)
-   yt-dlp -f "bestvideo+bestaudio/best" --recode-video mp4 -o "~/storage/downloads/%(title)s.%(ext)s" $URL
-   ;;
-
-  1)
-   yt-dlp -f "bestaudio/best" -x --audio-format mp3 -o "~/storage/downloads/%(title)s.%(ext)s" $URL
-   ;;
-
-  2)
-   yt-dlp -F $URL
-   read FORMAT
-   yt-dlp -f $FORMAT -o "~/storage/downloads/%(title)s.%(ext)s" $URL
-   ;;
-
-  3)
-   termux-open-url `yt-dlp -f "b" -g $URL`
-   ;;
-
-  4)
-   termux-open-url `yt-dlp -f "bestaudio/b" -g $URL`
-   ;;
-
-  5)
-   yt-dlp -F $URL
-   read FORMAT
-   termux-open-url `yt-dlp -f $FORMAT -g $URL`
-   ;;
-
+  0|3)
+   FORMAT="b/bv+ba"
+  ;;
+  1|4)
+   FORMAT="ba/b -x --audio-format mp3"
+  ;;
+  2|5)
+   clear
+   yt-dlp -qF $URL
+   read -p "Video+Audio: " FORMAT
+  ;;
   *)
-   echo Download termux-api from F-DROID, or just select an option
-   echo '0) Download Video 1) Download Music 2) Download Other 3) Stream Video 4) Stream Music 5) Stream Other'
-   read OPTION
+   echo Download termux-api from F-DROID for a better interface, or type a number and press enter
+   read -p "1) Download Video 2) Download Music 3) Download Custom 4) Stream Video 5) Stream Music 6) Stream Custom: " OPTION
+   OPTION=`expr $OPTION - 1`
    download
-   ;;
+  ;;
  esac
+ case $OPTION in
+  3|4|5)
+   OPEN="termux-open-url \`"
+   URL="-g $URL\`"
+  ;;
+ esac
+ $OPEN\yt-dlp -f "$FORMAT" "$URL"
 }
 OPTION="$(termux-dialog sheet -v '1) Download Video','2) Download Music','3) Download Other','4) Stream Video','5) Stream Music','6) Stream Other' | jq '.index' -r)"
 download
