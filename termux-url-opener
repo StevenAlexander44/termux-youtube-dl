@@ -18,11 +18,11 @@ download () {
 	esac
 	case $OPTION in
 		3|4|5)
-		OPEN="termux-open-url \`"
-		URL="-g $URL\`";;
+		URL="-g $URL | termux-share -a send";;
 	esac
-	$OPEN\yt-dlp -f "$FORMAT" "$URL"
+	yt-dlp -f "$FORMAT" "$URL"
 	exit
 }
+termux-api-start
 OPTION="$(termux-dialog sheet -v '1) Download Video','2) Download Music','3) Download Custom','4) Stream Video','5) Stream Music','6) Stream Custom' | jq '.index' -r)"
 download
